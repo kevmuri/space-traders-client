@@ -3,7 +3,7 @@ import axios from 'axios';
 import {jwt} from "@/utils/jwt";
 import {compareRouterStates} from "next/dist/shared/lib/router/utils/compare-states";
 
-function buildJSON(includeAuth) {
+function buildJSON(includeAuth=true) {
     let jsonObject = {
         headers: {},
         data: {},
@@ -13,10 +13,8 @@ function buildJSON(includeAuth) {
         jsonObject['headers']['Authorization'] = 'Bearer ' + jwt;
     }
 
-    console.log(arguments.length)
-    for (let i = 1; i < arguments.length - 1; i++) {
-        console.log(arguments[i])
-        jsonObject[arguments[i][0]][arguments[i][1]] = arguments[i][2];
+    for (let i = 1; i < arguments.length; i++) {
+        jsonObject[arguments[i][0]]= String((arguments[i][1]));
     }
     console.log(jsonObject);
     return jsonObject;
@@ -28,10 +26,12 @@ export async function getMyAgent() {
 }
 
 export async function createMyAgent() {
-   let jsonValues = (['headers', 'Content-Type', 'application/json'],
-        ['data', 'symbol', 'TESTLOBSTER'],
-        ['data', 'faction', 'COSMIC']);
+   let values = [
+        ['symbol', 'LOBSTER'],
+        ['faction', 'VOID']
+   ];
+   console.log(values)
 
-   const response = await axios.post(API_URL + '/register', buildJSON(true, ...jsonValues));
+   const response = await axios.post(API_URL + '/register', buildJSON(false, ...values));
    return response;
 }
