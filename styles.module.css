@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+.body {
+    background-color: black;
+    font-family: 'VT323', monospace;
+    font-size: 32px;
+}
+
+.rootContainer {
+    background-color: black;
+    color: white;
+    margin: 8px;
+    padding: 8px;
+    border: 1px solid white;
+    }

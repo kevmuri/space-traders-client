@@ -1,7 +1,6 @@
 import {API_URL} from "@/utils/constants";
 import axios from 'axios';
 import {jwt} from "@/utils/jwt";
-import {compareRouterStates} from "next/dist/shared/lib/router/utils/compare-states";
 
 function buildJSON(includeAuth=true) {
     let jsonObject = {
@@ -30,8 +29,12 @@ export async function createMyAgent() {
         ['symbol', 'LOBSTER'],
         ['faction', 'VOID']
    ];
-   console.log(values)
 
    const response = await axios.post(API_URL + '/register', buildJSON(false, ...values));
    return response;
+}
+
+export async function getContracts() {
+  const response = await axios.get(API_URL + '/my/contracts', buildJSON());
+  return response;
 }

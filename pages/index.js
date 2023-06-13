@@ -1,18 +1,15 @@
-import {getMyAgent, createMyAgent} from "@/utils/apiHandler";
+import * as api from "@/utils/apiHandler";
 import {React, useEffect, useState} from "react";
 import {console} from "next/dist/compiled/@edge-runtime/primitives/console";
-import ReactDOM from 'react-dom/client';
-
-function createIntroduction() {
-  return <div>Hello!</div>;
-}
+import styles from '@/styles.module.css';
 
 export default function Home() {
   const [agentInfo, setAgentInfo] = useState({});
-  const [motd, setMOTD] = useState();
+  const [myContracts, setMyContracts] = useState({})
+
 
   async function getAgentInfo() {
-      let resp = await getMyAgent();
+      let resp = await api.getMyAgent();
       const respData = resp.data.data;
       console.log(respData)
       setAgentInfo(respData);
@@ -20,7 +17,7 @@ export default function Home() {
 
 
     async function createAgent() {
-      let resp = await createMyAgent();
+      const resp = await api.createMyAgent();
 
       if (resp.status === 201) {
           let token = 'export const jwt = \'' + resp.data.data.token +'\'';
@@ -34,18 +31,32 @@ export default function Home() {
       console.log(resp);
     }
 
-function createIntroduction() {
-    return <div>Hello!</div>;
-  }
-
+    async function viewContracts() {
+      const resp = await api.getContracts();
+      const respData = resp.data;
+      console.log(respData)
+      setMyContracts(respData)
+    }
 
   useEffect(() => {
-    createIntroduction();
+    getAgentInfo();
   }, []);
 
-    return (
+return (
+    <body className={styles.body}>
+      <div className={styles.rootContainer}>
         <div>
-          <createIntroduction />
+          { agentInfo.symbol
+              ? <div>Welcome, {JSON.stringify(agentInfo.symbol)}.</div>
+              : <div>No agent found. <button onClick={createAgent}>Create Agent?</button></div>
+          }
+          <br/>
+          <div>Headquarters: {JSON.stringify(agentInfo.headquarters)}</div>
+          <div>Credits: {JSON.stringify(agentInfo.credits)}</div>
+          <div>Faction: {JSON.stringify(agentInfo.startingFaction)}</div>
         </div>
-    );
+        <button onClick={viewContracts}>Get Contracts</button>
+      </div>
+    </body>
+)
 }
