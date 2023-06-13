@@ -31,7 +31,7 @@ export default function Home() {
       console.log(resp);
     }
 
-    async function viewContracts() {
+    async function viewWaypoints() {
       const resp = await api.getContracts();
       const respData = resp.data;
       console.log(respData)
@@ -55,7 +55,8 @@ return (
           <div>Credits: {JSON.stringify(agentInfo.credits)}</div>
           <div>Faction: {JSON.stringify(agentInfo.startingFaction)}</div>
         </div>
-        <button onClick={viewContracts}>Get Contracts</button>
+        <br/>
+        <button onClick={viewContracts} className={styles.buttons}>Get Contracts</button>
       </div>
     </body>
 )

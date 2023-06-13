@@ -12,3 +12,13 @@
     padding: 8px;
     border: 1px solid white;
     }
+
+.buttons {
+    font-family: 'VT323', monospace;
+    color: black;
+    background-color: white;
+    border-radius: 8px;
+    padding: 4px;
+    font-size: 24px;
+
+}
