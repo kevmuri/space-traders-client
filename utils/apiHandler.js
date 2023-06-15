@@ -1,6 +1,9 @@
-import {API_URL} from "@/utils/constants";
 import axios from 'axios';
-import {jwt} from "@/utils/jwt";
+import {getCookie} from "cookies-next";
+
+const jwt = getCookie('jwt');
+const API_URL = 'https://api.spacetraders.io/v2';
+
 
 function buildJSON(includeAuth=true) {
     let jsonObject = {
@@ -24,12 +27,7 @@ export async function getMyAgent() {
     return response;
 }
 
-export async function createMyAgent() {
-   let values = [
-        ['symbol', 'LOBSTER'],
-        ['faction', 'VOID']
-   ];
-
+export async function createMyAgent(values) {
    const response = await axios.post(API_URL + '/register', buildJSON(false, ...values));
    return response;
 }
