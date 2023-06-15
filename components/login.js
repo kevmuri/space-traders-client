@@ -14,6 +14,8 @@ export default function Login() {
 
   const [submittedToken, setSubmittedToken] = useState('')
 
+  const router = useRouter()
+
   async function checkLogon() {
     if (hasCookie('jwt')) {
       try {
@@ -30,22 +32,20 @@ export default function Login() {
     }
   }
 
-  function logon(submittedToken) {
-    let cookies = getCookies();
-    for (let i = 0; i < cookies.length; i++) {
-      console.log(cookies[i])
-    }
-
+  function logon() {
     setCookie('jwt', submittedToken);
     checkLogon();
+    router.refresh();
   }
 
   function logoff() {
-    setCookie('jwt',null);
+    deleteCookie('jwt')
+    setLoggedIn(false)
+    router.refresh();
   }
 
   async function createAgent() {
-    const resp = await api.createMyAgent(['symbol', newSymbol], ['faction', newFaction])
+    const resp = await api.createMyAgent([['symbol', newSymbol], ['faction', newFaction]])
     setReceivedToken(resp.data.data.token)
   }
 
