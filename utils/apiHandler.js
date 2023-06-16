@@ -23,16 +23,13 @@ function buildJSON(includeAuth=true) {
 }
 
 export async function getMyAgent() {
-    const response = await axios.get(API_URL + '/my/agent', buildJSON());
-    return response;
+  return await axios.get(API_URL + '/my/agent', buildJSON());
 }
 
 export async function createMyAgent(values) {
-   const response = await axios.post(API_URL + '/register', buildJSON(false, ...values));
-   return response;
+  return await axios.post(API_URL + '/register', buildJSON(false, ...values));
 }
 
-export async function getContracts() {
-  const response = await axios.get(API_URL + '/my/contracts', buildJSON());
-  return response;
+export async function getWaypoints(systemSymbol) {
+  return await axios.get(API_URL + '/systems/' + systemSymbol + '/waypoints', buildJSON());
 }

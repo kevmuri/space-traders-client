@@ -1,18 +1,17 @@
 import * as api from "@/utils/apiHandler";
 import {React, useEffect, useState} from "react";
-import Head from "next/head";
 import {getCookie, hasCookie, setCookie, deleteCookie, getCookies} from "cookies-next";
 import {useRouter, redirect} from "next/navigation";
 
-export default function LogoffHeader() {
-  const [agentInfo, setAgentInfo] = useState({});
+export default function LogoffFooter() {
+  const [agentSymbol, setAgentSymbol] = useState('');
   const router = useRouter()
 
   async function checkLogon() {
     const resp = await api.getMyAgent();
 
     if (resp.status === 200) {
-      setAgentInfo(resp.data.data);
+      setAgentSymbol(resp.data.data.symbol);
     }
     else {
       logoff();
@@ -30,13 +29,9 @@ export default function LogoffHeader() {
 
   return (
       <div className='logoff'>
-        <Head>
-          <title>Page Title</title>
-          <meta property="og:title" content="Page Title" key="title" />
-        </Head>
         {
             <div>
-                  <strong>Welcome, {JSON.stringify(agentInfo.symbol)} </strong>
+                  <strong>Welcome, {JSON.stringify(agentSymbol)} </strong>
                   <button onClick={logoff} className='btn'>Log out?</button>
                 </div>
         }

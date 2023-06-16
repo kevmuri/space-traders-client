@@ -1,7 +1,20 @@
-import LogoffHeader from "@/components/LogoffHeader";
+import LogoffFooter from "@/components/LogoffFooter";
+import AgentInfo from "@/components/AgentInfo";
+import SystemMap from "@/components/SystemMap";
 
 export default function Home () {
   return (
-      <LogoffHeader />
+      <>
+        <div className='mainContainer'>
+          <div className='hCenter'>
+            <AgentInfo />
+          </div>
+          <div className='hCenter'>
+            <div><SystemMap /></div>
+          </div>
+        </div>
+        <LogoffFooter />
+      </>
+
   )
 }

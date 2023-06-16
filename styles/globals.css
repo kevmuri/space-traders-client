@@ -3,15 +3,11 @@
 :root {
   background-color: black;
   color: white;
-  border: 1px white solid;
   font-family: 'VT323', monospace;
-  display: flex;
-  justify-content: center;
 }
 
 .login {
   text-align: center;
-  font-size: 24px;
 }
 
 .btn {
@@ -22,6 +18,28 @@
 }
 
 .logoff {
+  text-align: end;
+  border: 1px white solid;
+  margin: 8px;
+  padding: 8px;
+}
+
+.mainContainer {
   display: flex;
-  justify-content: flex-end;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 24px;
+  border: 1px white solid;
+  margin: 8px;
+  padding: 8px;
+  text-align: center;
+}
+
+.hCenter {
+  text-align: center;
+}
+
+.map {
+  width: 300px;
+  max-width: 300px;
 }
