@@ -10,7 +10,7 @@ export default function Home () {
             <AgentInfo />
           </div>
           <div className='hCenter'>
-            <div><SystemMap /></div>
+            <div className="map"><SystemMap /></div>
           </div>
         </div>
         <LogoffFooter />

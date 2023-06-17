@@ -37,9 +37,10 @@
 
 .hCenter {
   text-align: center;
+  display: flex;
+  justify-content: center;
 }
 
 .map {
-  width: 300px;
-  max-width: 300px;
+  flex-basis: 40%;
 }
