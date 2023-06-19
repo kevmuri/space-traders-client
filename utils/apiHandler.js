@@ -8,7 +8,12 @@ const API_URL = 'https://api.spacetraders.io/v2';
 function buildJSON(includeAuth=true) {
     let jsonObject = {
         headers: {},
-        data: {}
+        data: {
+          meta: {
+            limit: 20,
+            total: 20
+          }
+        }
     };
 
     if (includeAuth === true) {

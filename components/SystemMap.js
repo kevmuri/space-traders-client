@@ -96,11 +96,6 @@ export default function SystemMap() {
             onChange={e => setCurrentSystem(e.target.value)}
             placeholder='SYSTEM'
           />
-          <input
-            value={pageQuantity}
-            onChange={e => setPageQuantity(e.target.value)}
-            placeholder='# OF PAGES'
-          />
         <br/>
           <button onClick={buildMap} className='btn'>Build Map</button>
       </>
