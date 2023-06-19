@@ -3,13 +3,19 @@ import {React, useEffect, useState} from "react";
 import Chart from 'chart.js/auto'
 
 export default function SystemMap() {
-  const [waypoints, setWaypoints] = useState({})
+  const [pageQuantity, setPageQuantity] = useState()
   const [currentSystem, setCurrentSystem] = useState('')
 
   async function buildMap() {
-    const resp = await api.getWaypoints(currentSystem);
-    const respData = resp.data.data;
-    setWaypoints(respData);
+
+    let waypoints = []
+      const resp = await api.getWaypoints(currentSystem);
+      const respData = resp.data.data;
+      for (let j = 0; j < respData.length; j++) {
+        waypoints.push(respData[j]);
+      }
+
+    console.log(waypoints)
 
     let myData = {
       datasets: [{
@@ -22,16 +28,16 @@ export default function SystemMap() {
     };
 
     let waypoint = {};
-    for (let i = 0; i < respData.length; i++) {
+    for (let i = 0; i < waypoints.length; i++) {
       waypoint = {
-        x: respData[i]['x'],
-        y: respData[i]['y'],
+        x: waypoints[i]['x'],
+        y: waypoints[i]['y'],
         data: {
-          symbol: respData[i]['symbol'],
-          type: respData[i]['type'],
-          orbitals: respData[i]['orbitals'],
-          traits: respData[i]['traits'],
-          faction: respData[i]['faction']
+          symbol: waypoints[i]['symbol'],
+          type: waypoints[i]['type'],
+          orbitals: waypoints[i]['orbitals'],
+          traits: waypoints[i]['traits'],
+          faction: waypoints[i]['faction']
         }
       }
 
@@ -39,6 +45,11 @@ export default function SystemMap() {
     }
 
     const ctx = document.getElementById('myChart').getContext('2d');
+
+    let chartStatus = Chart.getChart("myChart"); // <canvas> id
+    if (chartStatus != undefined) {
+      chartStatus.destroy();
+    }
     const myChart = new Chart(ctx, {
       type: 'scatter',
       data: myData,
@@ -81,9 +92,14 @@ export default function SystemMap() {
         <canvas id='myChart' />
         <br/>
           <input
-              value={currentSystem}
-              onChange={e => setCurrentSystem(e.target.value)}
-              placeholder='SYSTEM'
+            value={currentSystem}
+            onChange={e => setCurrentSystem(e.target.value)}
+            placeholder='SYSTEM'
+          />
+          <input
+            value={pageQuantity}
+            onChange={e => setPageQuantity(e.target.value)}
+            placeholder='# OF PAGES'
           />
         <br/>
           <button onClick={buildMap} className='btn'>Build Map</button>
